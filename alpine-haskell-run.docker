@@ -21,7 +21,7 @@ ENV LC_ALL   en_US.UTF-8
 # Basic system libraries
 RUN    apk update \
     && apk upgrade --available \
-    && apk add gmp zlib expat postgresql-devel
+    && apk add gmp zlib expat postgresql-dev
 
 WORKDIR /opt/app
 EXPOSE 3000
