@@ -1,0 +1,29 @@
+# Use this image to run Haskell applications
+#
+# It doesn't contain any compiler or build dependency, just what is needed to
+# run the application and therefore lightweight.
+#
+# * Execute a container with (assuming the DBMS runs in the same host):
+#
+#     $ docker run --net="host" -p 3000:3000 execname-execname
+#
+# * For Yesod apps, pass the static dir path as an env variable:
+#
+#     $ docker run --net="host" -e STATIC_DIR="/opt/app/static" -p 3000:3000 execname-execname
+
+FROM alpine:latest
+LABEL author="Daniel Campoverde <alx@sillybytes.net>"
+
+ENV LANG     en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL   en_US.UTF-8
+
+# Basic system libraries
+RUN    apk update \
+    && apk upgrade --available \
+    && apk add gmp zlib expat postgresql-devel
+
+WORKDIR /opt/app
+EXPOSE 3000
+
+# vim: ft=dockerfile
